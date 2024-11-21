@@ -22,7 +22,13 @@ function M.edit_relative_file(filepath)
         return
     end
 
-    vim.cmd.e(vim.fs.joinpath(git_dir, filepath))
+    local file = vim.fs.joinpath(git_dir, filepath)
+
+    if not vim.uv.fs_statfs(file) then
+        error("can't edit non existent file")
+    end
+
+    vim.cmd.e(file)
 end
 
 ---@return gitdive.Range?

@@ -16,7 +16,7 @@ local M = {}
 
 ---@param range gitdive.Range?
 function M.browse(range)
-    local remote_url = gitdive_git.get_remote_url()
+    local remote_url = gitdive_git.get_remote_browser_base_url()
     if not remote_url then
         error("can't get remote url")
     end
@@ -38,13 +38,24 @@ function M.browse(range)
         error("can't get revision")
     end
 
-    local pathname = config.config.host_to_pathname[host](filepath, vim.uri_encode(revision), range)
-    gitdive_os.open_default(vim.fs.joinpath(remote_url, pathname))
+    local pathname = config.config.host_to_pathname[host](filepath, revision, range)
+    local url = vim.fs.joinpath(remote_url, pathname)
+    gitdive_os.open_default(url)
 end
 
 ---@param farg string
 ---@param switch boolean
 function M.edit(farg, switch)
+    local remote_url = gitdive_git.get_remote_browser_base_url()
+    if not remote_url then
+        error("can't get remote url")
+    end
+
+    local host = config.config.get_host(remote_url)
+    if not host then
+        error("unknown git host")
+    end
+
     ---@type gitdive.ParsedUrl?
     local parsed_url
 
@@ -56,12 +67,18 @@ function M.edit(farg, switch)
             break
         end
     end
-
     if not parsed_url then
-        error("can't parse url")
+        error("couldn't get parsed_url")
     end
 
-    parsed_url.revision = vim.uri_decode(parsed_url.revision)
+    parsed_url.filepath = vim.uri_decode(parsed_url.filepath)
+
+    if vim.list_contains(config.config.guess_revision, host) then
+        parsed_url = gitdive_git.guess_revision_from_url(parsed_url)
+        if not parsed_url then
+            error("couldn't guess revision")
+        end
+    end
 
     if switch then
         if not gitdive_git.switch_revision(parsed_url.revision) then

@@ -27,7 +27,7 @@ function M.system(cmd)
     local cwd = vim.fn.fnamemodify(config.config.get_absolute_file(), ":h")
     local out = vim.system(cmd, { cwd }):wait()
     if out.code == 0 then
-        return out.stdout or ""
+        return vim.trim(out.stdout or "")
     end
 end
 

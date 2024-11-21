@@ -1,9 +1,13 @@
 local M = {
     config = {
+        -- if not specified, opening revisions (branches) with "/" in nvim will not work for some hosts
+        -- this incurs a `ls-remote` call to guess correctly
+        -- this is only required for hosts that do not escape "/" in revisions in url
+        guess_revision = { "github" },
         -- converts local git remote url into browser base url
         remote_url_patterns = {
             { "^(https?://.*)%.git", "%s" },
-            { "^git@(.-):(.+)%.git", "https://%s/%s" },
+            { "^git@(.+):(.+)%.git", "https://%s/%s" },
         },
         -- converts browser url into parsed url
         ---@type [string, fun(matches: string[]): gitdive.ParsedUrl][]

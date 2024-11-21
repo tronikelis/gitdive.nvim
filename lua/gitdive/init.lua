@@ -92,6 +92,7 @@ function M.setup(opts)
     end, {
         nargs = "?",
         range = true,
+        bang = true,
     })
 end
 

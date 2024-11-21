@@ -1,3 +1,5 @@
+local config = require("gitdive.config")
+
 local M = {}
 
 ---@param url string
@@ -22,7 +24,7 @@ end
 ---@param cmd string[]
 ---@return string?
 function M.system(cmd)
-    local cwd = vim.fn.expand("%:p:h") or vim.fn.getcwd()
+    local cwd = vim.fn.fnamemodify(config.config.get_absolute_file(), ":h")
     local out = vim.system(cmd, { cwd }):wait()
     if out.code == 0 then
         return out.stdout or ""

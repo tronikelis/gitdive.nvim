@@ -10,12 +10,12 @@ function M.open_default(url)
     elseif vim.fn.has("win32") == 1 then
         bin = "start"
     else
-        print("unknown os")
+        error("unknown os")
         return
     end
 
     if not M.system({ bin, url }) then
-        print("can't open", url)
+        error("can't open " .. url)
     end
 end
 

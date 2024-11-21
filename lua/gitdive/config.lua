@@ -21,7 +21,7 @@ local M = {
                         filepath = m[2],
                         range = {
                             from = tonumber(m[3]),
-                            to = tonumber(m[4] or m[3]),
+                            to = tonumber(m[3]),
                         },
                     }
                 end,
@@ -35,7 +35,7 @@ local M = {
                         filepath = m[2],
                         range = {
                             from = tonumber(m[3]),
-                            to = tonumber(m[4] or m[3]),
+                            to = tonumber(m[3]),
                         },
                     }
                 end,

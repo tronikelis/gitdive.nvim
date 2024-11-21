@@ -90,11 +90,7 @@ function M.edit(farg, switch)
 
     if parsed_url.range then
         vim.cmd([[normal! m']]) -- add current cursor position to the jump list
-
-        -- todo: this goes out of visual if current is normal
         vim.api.nvim_win_set_cursor(0, { parsed_url.range.from, 0 })
-        vim.cmd([[normal! V]])
-        vim.api.nvim_win_set_cursor(0, { parsed_url.range.to, 0 })
     end
 end
 

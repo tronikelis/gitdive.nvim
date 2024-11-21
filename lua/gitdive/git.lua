@@ -20,7 +20,7 @@ function M.get_revision()
         end
     end
 
-    return out
+    return vim.trim(out)
 end
 
 ---@param revision string

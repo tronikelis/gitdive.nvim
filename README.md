@@ -8,6 +8,7 @@ Dive into and from remote repositories with style
   - [Config](#config)
   - [Recipes](#recipes)
   - [Multiple remote host support](#multiple-remote-host-support)
+  - [Inspired by / alternatives](#inspired-by-alternatives)
 <!--toc:end-->
 
 ## Quick start
@@ -148,3 +149,8 @@ by changing the configuration, specifically the `remote_url_patterns`
 `get_host` `url_patterns` `host_to_pathname`
 
 Or even better open a PR that changes the default config, so everyone benefits ;)
+
+## Inspired by / alternatives
+
+- [gitportal.nvim](https://github.com/trevorhauter/gitportal.nvim)
+- [snacks.nvim](https://github.com/folke/snacks.nvim)

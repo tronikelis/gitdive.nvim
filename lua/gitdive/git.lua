@@ -13,7 +13,7 @@ function M.get_revision()
     end
 
     -- we are in detached head
-    if out:sub(1, #head) == head then
+    if vim.trim(out) == head then
         out = gitdive_os.system({ "git", "rev-parse", "--short", head })
         if not out then
             return

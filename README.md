@@ -144,3 +144,5 @@ Oil.nvim support
 OOTB only github is supported, but more repo hosts can be added
 by changing the configuration, specifically the `remote_url_patterns`
 `get_host` `url_patterns` `host_to_pathname`
+
+Or even better open a PR that changes the default config, so everyone benefits ;)

@@ -27,13 +27,13 @@ end
 
 ---@return gitdive.Range?
 function M.get_range()
-    if vim.api.nvim_get_mode().mode ~= "v" then
+    if string.lower(vim.api.nvim_get_mode().mode) ~= "v" then
         return
     end
 
     return {
-        from = vim.api.nvim_buf_get_mark(0, "<")[1],
-        to = vim.api.nvim_buf_get_mark(0, ">")[1],
+        from = vim.fn.line("v"),
+        to = vim.fn.line("."),
     }
 end
 

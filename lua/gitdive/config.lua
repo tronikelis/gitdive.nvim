@@ -1,9 +1,11 @@
 local M = {
     config = {
-        remote_patterns = {
+        -- converts local git remote url into browser base url
+        remote_url_patterns = {
             { "^(https?://.*)%.git", "%s" },
             { "^git@(.-):(.+)%.git", "https://%s/%s" },
         },
+        -- converts browser url into parsed url
         ---@type [string, fun(matches: string[]): gitdive.ParsedUrl][]
         url_patterns = {
             {
@@ -34,7 +36,6 @@ local M = {
                     }
                 end,
             },
-
             {
                 "^https://github.com/.-/.-/tree/(.-)/(.+)",
                 function(...)
@@ -56,8 +57,9 @@ local M = {
                 end,
             },
         },
+        -- converts into relative browser url
         ---@type table<string, fun(string, string, gitdive.Range?): string>
-        host_to_url = {
+        host_to_pathname = {
             github = function(filepath, revision, range)
                 local path = string.format("/blob/%s/%s", revision, filepath)
 

@@ -38,7 +38,7 @@ function M.browse(range)
         error("can't get revision")
     end
 
-    local pathname = config.config.host_to_url[host](filepath, revision, range)
+    local pathname = config.config.host_to_pathname[host](filepath, revision, range)
     gitdive_os.open_default(vim.fs.joinpath(remote_url, pathname))
 end
 

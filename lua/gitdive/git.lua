@@ -29,7 +29,7 @@ function M.get_remote_url()
         return
     end
 
-    for _, v in ipairs(config.config.remote_patterns) do
+    for _, v in ipairs(config.config.remote_url_patterns) do
         local matched = { out:match(v[1]) }
 
         if matched[1] then

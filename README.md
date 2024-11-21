@@ -2,6 +2,14 @@
 
 Dive into and from remote repositories with style
 
+<!--toc:start-->
+- [🌊 gitdive.nvim](#🌊-gitdivenvim)
+  - [Quick start](#quick-start)
+  - [Config](#config)
+  - [Recipes](#recipes)
+  - [Multiple remote host support](#multiple-remote-host-support)
+<!--toc:end-->
+
 ## Quick start
 
 Install

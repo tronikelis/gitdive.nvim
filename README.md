@@ -27,7 +27,9 @@ Dive in
 
 Dive from
 
-`GitDive <url>` browser -> file
+`GitDive[!] <url>` browser -> file
+
+`!` switches revision when opening file from browser url
 
 
 ## Config

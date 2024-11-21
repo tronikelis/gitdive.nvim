@@ -3,6 +3,7 @@ local config = require("gitdive.config")
 
 local M = {}
 
+---@return string?
 function M.get_revision()
     local head = "HEAD"
 
@@ -20,6 +21,18 @@ function M.get_revision()
     end
 
     return out
+end
+
+---@param revision string
+---@return boolean
+function M.switch_revision(revision)
+    if not gitdive_os.system({ "git", "switch", revision }) then
+        if not gitdive_os.system({ "git", "switch", revision, "--detach" }) then
+            return false
+        end
+    end
+
+    return true
 end
 
 ---@return string?

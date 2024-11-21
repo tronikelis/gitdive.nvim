@@ -43,7 +43,8 @@ function M.browse(range)
 end
 
 ---@param farg string
-function M.edit(farg)
+---@param switch boolean
+function M.edit(farg, switch)
     ---@type gitdive.ParsedUrl?
     local parsed_url
 
@@ -58,6 +59,12 @@ function M.edit(farg)
 
     if not parsed_url then
         error("can't parse url")
+    end
+
+    if switch then
+        if not gitdive_git.switch_revision(parsed_url.revision) then
+            error("can't switch revision")
+        end
     end
 
     gitdive_buf.edit_relative_file(parsed_url.filepath)
@@ -88,7 +95,7 @@ function M.setup(opts)
             return
         end
 
-        M.edit(ev.fargs[1])
+        M.edit(ev.fargs[1], ev.bang)
     end, {
         nargs = "?",
         range = true,

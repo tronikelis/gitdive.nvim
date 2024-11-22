@@ -91,6 +91,13 @@ function M.edit(farg, switch)
     if parsed_url.range then
         vim.cmd([[normal! m']]) -- add current cursor position to the jump list
         vim.api.nvim_win_set_cursor(0, { parsed_url.range.from, 0 })
+
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<esc>", true, true, true), "nv", false)
+
+        vim.schedule(function()
+            vim.cmd([[normal! V]])
+            vim.api.nvim_win_set_cursor(0, { parsed_url.range.to, 0 })
+        end)
     end
 end
 

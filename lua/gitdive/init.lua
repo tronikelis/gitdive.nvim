@@ -40,7 +40,7 @@ function M.browse(range)
 
     local pathname = config.config.host_to_pathname[host](filepath, revision, range)
     local url = vim.fs.joinpath(remote_url, pathname)
-    gitdive_os.open_default(url)
+    vim.ui.open(url)
 end
 
 ---@param farg string

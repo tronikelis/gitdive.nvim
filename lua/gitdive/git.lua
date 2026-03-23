@@ -89,7 +89,7 @@ end
 ---@return boolean
 function M.switch_revision(revision)
     if not g_os.system({ "git", "switch", revision }) then
-        if not g_os.system({ "git", "switch", revision, "--detach" }) then
+        if not g_os.system({ "git", "switch", "--detach", revision }) then
             return false
         end
     end

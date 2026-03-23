@@ -1,4 +1,4 @@
-local gitdive_os = require("gitdive.os")
+local g_os = require("gitdive.os")
 local config = require("gitdive.config")
 
 local M = {}
@@ -8,13 +8,13 @@ local M = {}
 ---@param parsed_url gitdive.ParsedUrl
 ---@return gitdive.ParsedUrl?
 function M.guess_revision_from_url(parsed_url)
-    local remote = gitdive_os.system({ "git", "config", "--get", "remote.origin.url" })
+    local remote = g_os.system({ "git", "config", "--get", "remote.origin.url" })
     if not remote then
         error("can't get remote")
         return
     end
 
-    local out = gitdive_os.system({
+    local out = g_os.system({
         "git",
         "ls-remote",
         "--heads",
@@ -55,18 +55,28 @@ function M.guess_revision_from_url(parsed_url)
     return parsed_url
 end
 
+---@param abbrev_ref boolean
 ---@return string?
-function M.get_revision()
+function M.get_revision(abbrev_ref)
     local head = "HEAD"
 
-    local out = gitdive_os.system({ "git", "rev-parse", "--abbrev-ref", head })
+    local cmd = {
+        "git",
+        "rev-parse",
+        "--short",
+    }
+    if abbrev_ref then
+        table.insert(cmd, "--abbrev-ref")
+    end
+    table.insert(cmd, head)
+    local out = g_os.system(cmd)
     if not out then
         return
     end
 
     -- we are in detached head
     if out == head then
-        out = gitdive_os.system({ "git", "rev-parse", "--short", head })
+        out = g_os.system({ "git", "rev-parse", "--short", head })
         if not out then
             return
         end
@@ -78,8 +88,8 @@ end
 ---@param revision string
 ---@return boolean
 function M.switch_revision(revision)
-    if not gitdive_os.system({ "git", "switch", revision }) then
-        if not gitdive_os.system({ "git", "switch", revision, "--detach" }) then
+    if not g_os.system({ "git", "switch", revision }) then
+        if not g_os.system({ "git", "switch", revision, "--detach" }) then
             return false
         end
     end
@@ -89,7 +99,7 @@ end
 
 ---@return string?
 function M.get_remote_browser_base_url()
-    local out = gitdive_os.system({ "git", "config", "--get", "remote.origin.url" })
+    local out = g_os.system({ "git", "config", "--get", "remote.origin.url" })
     if not out then
         return
     end

@@ -24,7 +24,9 @@ Install
 
 Dive in
 
-`[range]GitDive` current file -> browser
+`[range]GitDive[!]` current file -> browser
+
+`!` turns on `--abbrev-ref`
 
 Dive from
 

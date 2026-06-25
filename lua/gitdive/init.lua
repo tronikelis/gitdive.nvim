@@ -106,6 +106,7 @@ function M.edit(farg, switch)
     end
 end
 
+---@param opts table?
 function M.setup(opts)
     local config = require("gitdive.config")
     opts = opts or {}
